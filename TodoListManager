@@ -1,0 +1,46 @@
+# todo_list_manager.py
+
+class TodoList:
+    def __init__(self):
+        self.todos = []
+
+    def add_todo(self, task):
+        """Add a task to the todo list."""
+        self.todos.append(task)
+        print(f"Added task: '{task}'")
+
+    def list_todos(self):
+        """List all todos."""
+        if not self.todos:
+            print("Your todo list is empty.")
+        else:
+            for idx, task in enumerate(self.todos, start=1):
+                print(f"{idx}. {task}")
+
+    def remove_todo(self, index):
+        """Remove a task from the todo list by its index."""
+        if 0 <= index < len(self.todos):
+            removed_task = self.todos.pop(index)
+            print(f"Removed task: '{removed_task}'")
+        else:
+            print("Invalid task index.")
+
+if __name__ == "__main__":
+    todo_list = TodoList()
+    print("Todo List Manager")
+    print("Commands: add <task>, list, remove <index>, quit")
+    
+    while True:
+        command = input("> ").lower().split()
+        
+        if command[0] == "quit":
+            break
+        elif command[0] == "add":
+            todo_list.add_todo(" ".join(command[1:]))
+        elif command[0] == "list":
+            todo_list.list_todos()
+        elif command[0] == "remove":
+            if len(command) == 2 and command[1].isdigit():
+                todo_list.remove_todo(int(command[1])-1)
+        else:
+            print("Unknown command.")
